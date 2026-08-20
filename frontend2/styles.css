@@ -1,0 +1,1269 @@
+:root {
+  --blue: #2563eb;
+  --blue-dark: #1d4ed8;
+  --navy: #14213d;
+
+  --bg: #f5f8ff;
+  --light-blue: #eaf1ff;
+
+  --border: #d5e0ef;
+  --text: #14213d;
+  --muted: #718096;
+
+  --white: #ffffff;
+
+  --shadow: 0 8px 25px rgba(30, 64, 175, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(
+      circle at 5% 15%,
+      rgba(37, 99, 235, 0.07) 0 110px,
+      transparent 111px
+    ),
+    radial-gradient(
+      circle at 96% 30%,
+      rgba(37, 99, 235, 0.06) 0 130px,
+      transparent 131px
+    ),
+    var(--bg);
+
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+}
+
+button {
+  font: inherit;
+}
+
+
+/* =====================================================
+   TOP HEADER
+===================================================== */
+
+.topbar {
+  background: #ffffff;
+  color: var(--text);
+
+  padding: 18px 4.2% 0;
+
+  border-bottom: 1px solid #e3e9f3;
+
+  box-shadow: 0 3px 15px rgba(30, 64, 175, 0.05);
+}
+
+.brand-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 25px;
+
+  padding-bottom: 18px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+
+  color: var(--navy);
+
+  letter-spacing: 0.3px;
+}
+
+
+/* =====================================================
+   STUDENT
+===================================================== */
+
+.student {
+  display: flex;
+  gap: 20px;
+
+  font-size: 15px;
+
+  align-items: center;
+}
+
+
+/* =====================================================
+   STUDENT PROFILE CARD
+===================================================== */
+
+.student-card {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  min-width: 230px;
+}
+
+.avatar {
+  width: 52px;
+  height: 52px;
+
+  border-radius: 14px;
+
+  background: var(--light-blue);
+  color: var(--blue);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 17px;
+  font-weight: 800;
+
+  flex-shrink: 0;
+}
+
+.student-info {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+
+  line-height: 1.15;
+}
+
+.student-info b {
+  color: var(--navy);
+
+  font-size: 16px;
+
+  font-weight: 800;
+}
+
+.student-info span {
+  color: var(--muted);
+
+  font-size: 12px;
+
+  font-weight: 500;
+}
+
+
+/* =====================================================
+   STATISTICS
+===================================================== */
+
+.stats {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 14px;
+
+  margin-top: 0;
+
+  padding-bottom: 18px;
+}
+
+.stats div {
+  background: #f8faff;
+
+  border: 1px solid var(--border);
+
+  border-radius: 10px;
+
+  padding: 11px 16px;
+
+  text-align: center;
+
+  font-size: 14px;
+
+  color: #52627a;
+}
+
+.stats b {
+  color: var(--navy);
+
+  font-weight: 800;
+}
+
+
+/* =====================================================
+   SECTION BAR
+===================================================== */
+
+.section-bar {
+  background: var(--blue);
+
+  color: #ffffff;
+
+  text-align: center;
+
+  font-size: 21px;
+
+  font-weight: 700;
+
+  padding: 11px;
+
+  position: relative;
+
+  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.15);
+}
+
+.section-bar span {
+  position: absolute;
+
+  right: 4%;
+
+  top: 0;
+
+  background: var(--blue-dark);
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  padding: 13px 20px;
+
+  border-radius: 0 0 8px 8px;
+}
+
+
+/* =====================================================
+   MAIN EXAM
+===================================================== */
+
+.exam {
+  display: grid;
+
+  grid-template-columns: minmax(0, 1fr) 300px;
+
+  max-width: 1400px;
+
+  margin: auto;
+
+  min-height: calc(100vh - 145px);
+}
+
+
+/* =====================================================
+   QUESTION AREA
+===================================================== */
+
+.question-area {
+  padding: 30px 4%;
+
+  max-width: 1050px;
+
+  width: 100%;
+
+  margin: auto;
+}
+
+.question-head {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 18px;
+}
+
+.question-head small {
+  color: var(--muted);
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+.question-head h1 {
+  margin: 5px 0;
+
+  font-size: 28px;
+
+  color: var(--navy);
+
+  font-weight: 800;
+}
+
+
+/* =====================================================
+   TIMER
+===================================================== */
+
+.timer-box {
+  background: #ffffff;
+
+  border: 1px solid #cbd9eb;
+
+  border-radius: 11px;
+
+  padding: 9px 17px;
+
+  text-align: center;
+
+  box-shadow: var(--shadow);
+
+  min-width: 105px;
+}
+
+.timer-box span {
+  display: block;
+
+  font-size: 9px;
+
+  color: var(--muted);
+
+  letter-spacing: 1.2px;
+
+  font-weight: 700;
+
+  margin-bottom: 2px;
+}
+
+.timer-box b {
+  color: var(--blue);
+
+  font-size: 21px;
+
+  font-weight: 800;
+}
+
+
+/* =====================================================
+   QUESTION PANEL
+===================================================== */
+
+.question-panel {
+  background: #ffffff;
+
+  border: 1px solid #e0e7f1;
+
+  border-radius: 16px;
+
+  padding: 25px;
+
+  box-shadow: var(--shadow);
+}
+
+.prompt {
+  font-size: 19px;
+
+  font-weight: 600;
+
+  line-height: 1.6;
+
+  margin: 0 0 22px;
+
+  color: var(--navy);
+}
+
+
+/* =====================================================
+   CONTENT ROW
+===================================================== */
+
+.content-row {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 25px;
+
+  align-items: stretch;
+}
+
+
+/* =====================================================
+   MEDIA PANEL
+===================================================== */
+
+.media-panel {
+  min-height: 320px;
+
+  background: #f9fbff;
+
+  border: 1px solid #d6e2f2;
+
+  border-radius: 13px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+.media-panel img {
+  width: 100%;
+
+  height: auto;
+
+  max-height: 420px;
+
+  object-fit: contain;
+
+  display: block;
+}
+
+
+/* =====================================================
+   AUDIO
+===================================================== */
+
+.audio-placeholder {
+  position: absolute;
+
+  bottom: 18px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 7px;
+
+  z-index: 5;
+}
+
+.audio-placeholder button {
+  width: 58px;
+
+  height: 58px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: var(--blue);
+
+  color: #ffffff;
+
+  font-size: 24px;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+
+  transition: 0.2s ease;
+}
+
+.audio-placeholder button:hover {
+  background: var(--blue-dark);
+
+  transform: scale(1.04);
+}
+
+.audio-placeholder span {
+  font-size: 12px;
+
+  color: var(--muted);
+
+  background: rgba(255, 255, 255, 0.95);
+
+  padding: 4px 9px;
+
+  border-radius: 6px;
+
+  border: 1px solid #e1e7ef;
+}
+
+
+/* =====================================================
+   MEDIA TEXT
+===================================================== */
+
+.media-text {
+  width: 100%;
+
+  height: 100%;
+
+  padding: 35px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  white-space: pre-line;
+
+  font-size: 27px;
+
+  font-weight: 600;
+
+  line-height: 1.7;
+
+  color: var(--navy);
+}
+
+.media-panel.text-content {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+
+/* =====================================================
+   ANSWER OPTIONS
+===================================================== */
+
+.options {
+  display: grid;
+
+  gap: 12px;
+}
+
+.option {
+  background: #ffffff;
+
+  border: 1px solid var(--border);
+
+  min-height: 62px;
+
+  text-align: left;
+
+  padding: 12px 17px;
+
+  border-radius: 11px;
+
+  cursor: pointer;
+
+  font-size: 17px;
+
+  color: #263854;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.option:hover {
+  border-color: #8fb2ed;
+
+  background: #f8fbff;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 5px 12px rgba(37, 99, 235, 0.07);
+}
+
+.option.selected {
+  background: var(--light-blue);
+
+  border: 2px solid var(--blue);
+
+  color: var(--navy);
+
+  box-shadow: 0 5px 14px rgba(37, 99, 235, 0.10);
+}
+
+.option-num {
+  font-weight: 800;
+
+  min-width: 27px;
+
+  color: var(--blue);
+}
+
+
+/* =====================================================
+   NAVIGATION CONTROLS
+===================================================== */
+
+.controls {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 35px;
+
+  margin: 30px 0 10px;
+}
+
+.controls button,
+.modal-actions button {
+  background: var(--blue);
+
+  border: none;
+
+  color: #ffffff;
+
+  border-radius: 10px;
+
+  padding: 13px 27px;
+
+  cursor: pointer;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.16);
+
+  transition: 0.2s ease;
+}
+
+.controls button:hover:not(:disabled),
+.modal-actions button:hover {
+  background: var(--blue-dark);
+
+  transform: translateY(-1px);
+}
+
+.controls button:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+
+  box-shadow: none;
+}
+
+
+/* =====================================================
+   QUESTION NAVIGATOR
+===================================================== */
+
+.question-nav {
+  background: #ffffff;
+
+  border-left: 1px solid #e0e7f1;
+
+  padding: 28px 20px;
+
+  box-shadow: -4px 0 15px rgba(30, 64, 175, 0.03);
+}
+
+.question-nav h2 {
+  margin: 0 0 18px;
+
+  font-size: 19px;
+
+  color: var(--navy);
+
+  font-weight: 800;
+}
+
+.question-nav p {
+  color: var(--blue);
+
+  font-weight: 800;
+
+  margin: 18px 0 9px;
+
+  font-size: 14px;
+}
+
+
+/* =====================================================
+   QUESTION NUMBERS
+===================================================== */
+
+.grid {
+  display: grid;
+
+  grid-template-columns: repeat(5, 1fr);
+
+  gap: 9px;
+}
+
+.number {
+  aspect-ratio: 1;
+
+  border: 1px solid #d5e0ef;
+
+  background: #ffffff;
+
+  border-radius: 8px;
+
+  color: #34445c;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.number:hover {
+  background: var(--light-blue);
+
+  border-color: #8fb2ed;
+
+  color: var(--blue);
+}
+
+.number.current {
+  background: var(--blue);
+
+  color: #ffffff;
+
+  border-color: var(--blue);
+
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.20);
+}
+
+.number.answered {
+  background: #dbeafe;
+
+  color: var(--blue);
+
+  border-color: #93b4ec;
+}
+
+
+/* =====================================================
+   SUBMIT BUTTON
+===================================================== */
+
+.submit {
+  width: 100%;
+
+  background: var(--blue);
+
+  border: none;
+
+  color: #ffffff;
+
+  border-radius: 10px;
+
+  padding: 13px 18px;
+
+  cursor: pointer;
+
+  font-weight: 700;
+
+  font-size: 14px;
+
+  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.17);
+
+  transition: 0.2s ease;
+}
+
+.submit:hover {
+  background: var(--blue-dark);
+
+  transform: translateY(-1px);
+}
+
+.question-nav .submit {
+  margin-top: 24px;
+}
+
+
+/* =====================================================
+   HOME BUTTON
+===================================================== */
+
+.home-btn {
+  background: #ffffff !important;
+
+  color: var(--blue) !important;
+
+  border: 1px solid #cbd8e9 !important;
+
+  border-radius: 10px !important;
+}
+
+.home-btn:hover {
+  background: #f5f8ff !important;
+
+  border-color: var(--blue) !important;
+}
+
+
+/* =====================================================
+   MODAL OVERLAY
+===================================================== */
+
+.overlay {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(20, 33, 61, 0.50);
+
+  display: grid;
+
+  place-items: center;
+
+  padding: 20px;
+
+  z-index: 20;
+
+  backdrop-filter: blur(3px);
+}
+
+.hidden {
+  display: none !important;
+}
+
+
+/* =====================================================
+   MODAL BOXES
+===================================================== */
+
+.all-box,
+.submit-box,
+.result-box {
+  position: relative;
+
+  background: #ffffff;
+
+  border-radius: 17px;
+
+  padding: 30px;
+
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.20);
+
+  width: min(720px, 100%);
+
+  border: 1px solid #e2e8f0;
+}
+
+.close {
+  position: absolute;
+
+  right: 14px;
+
+  top: 8px;
+
+  border: 0;
+
+  background: none;
+
+  font-size: 28px;
+
+  color: var(--muted);
+
+  cursor: pointer;
+}
+
+.close:hover {
+  color: var(--navy);
+}
+
+
+/* =====================================================
+   ALL QUESTIONS
+===================================================== */
+
+.all-grid {
+  display: grid;
+
+  grid-template-columns: repeat(10, 1fr);
+
+  gap: 8px;
+
+  margin-top: 20px;
+}
+
+
+/* =====================================================
+   WARNING
+===================================================== */
+
+.warning {
+  margin: auto;
+
+  width: 48px;
+
+  height: 48px;
+
+  border-radius: 50%;
+
+  display: grid;
+
+  place-items: center;
+
+  background: #fff5dc;
+
+  color: #a66a00;
+
+  font-weight: 800;
+
+  font-size: 22px;
+}
+
+
+/* =====================================================
+   SUBMIT MODAL
+===================================================== */
+
+.submit-box {
+  text-align: center;
+
+  width: min(430px, 100%);
+}
+
+.modal-actions {
+  display: flex;
+
+  gap: 10px;
+
+  justify-content: center;
+
+  margin-top: 20px;
+}
+
+.modal-actions button {
+  width: auto;
+}
+
+
+/* =====================================================
+   RESULT MODAL
+===================================================== */
+
+.result-box {
+  text-align: center;
+
+  max-width: 500px;
+}
+
+.result-box h1 {
+  color: var(--blue);
+
+  font-size: 27px;
+
+  font-weight: 800;
+}
+
+.result-box div {
+  font-size: 17px;
+
+  line-height: 1.8;
+
+  color: #52627a;
+}
+
+.note {
+  color: var(--muted);
+
+  font-size: 13px !important;
+
+  margin: 15px 0;
+}
+
+.result-box .submit {
+  width: auto;
+}
+
+
+/* =====================================================
+   Q36 & Q37 PICTURE QUESTIONS
+===================================================== */
+
+.content-row.picture-question {
+  grid-template-columns: 1fr 1.6fr;
+
+  gap: 28px;
+
+  align-items: stretch;
+}
+
+.content-row.picture-question .media-panel {
+  min-height: 320px;
+
+  overflow: hidden;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.content-row.picture-question .media-panel img {
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: contain;
+}
+
+.content-row.picture-question .options.picture-options {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 16px;
+
+  width: 100%;
+}
+
+.content-row.picture-question .picture-option {
+  background: #ffffff;
+
+  border: 1px solid #d5e0ef;
+
+  border-radius: 11px;
+
+  padding: 0;
+
+  min-height: 150px;
+
+  cursor: pointer;
+
+  overflow: hidden;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  transition: 0.2s ease;
+}
+
+.content-row.picture-question .picture-option:hover {
+  border-color: #8fb2ed;
+
+  background: #f8fbff;
+}
+
+.content-row.picture-question .picture-option img {
+  width: 100%;
+
+  height: 100%;
+
+  max-height: 150px;
+
+  object-fit: contain;
+
+  display: block;
+}
+
+.content-row.picture-question .picture-option.selected {
+  border: 3px solid var(--blue);
+
+  box-shadow: 0 5px 14px rgba(37, 99, 235, 0.12);
+}
+
+
+/* =====================================================
+   RESPONSIVE — TABLET
+===================================================== */
+
+@media(max-width: 900px) {
+
+  .exam {
+    grid-template-columns: 1fr;
+  }
+
+  .question-nav {
+    border-left: 0;
+
+    border-top: 1px solid #e0e7f1;
+  }
+
+  .grid {
+    grid-template-columns: repeat(10, 1fr);
+  }
+}
+
+
+/* =====================================================
+   RESPONSIVE — MOBILE
+===================================================== */
+
+@media(max-width: 650px) {
+
+  .topbar {
+    padding: 15px 15px 0;
+  }
+
+  .brand-row {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 12px;
+  }
+
+  .logo {
+    font-size: 19px;
+  }
+
+  .student {
+    font-size: 14px;
+  }
+
+  .student-card {
+    min-width: auto;
+  }
+
+  .avatar {
+    width: 44px;
+
+    height: 44px;
+
+    font-size: 15px;
+
+    border-radius: 12px;
+  }
+
+  .student-info b {
+    font-size: 15px;
+  }
+
+  .student-info span {
+    font-size: 11px;
+  }
+
+  .stats {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8px;
+  }
+
+  .stats div {
+    font-size: 12px;
+
+    padding: 9px 7px;
+  }
+
+  .section-bar {
+    font-size: 18px;
+
+    padding: 10px;
+  }
+
+  .section-bar span {
+    font-size: 10px;
+
+    padding: 10px;
+
+    right: 0;
+  }
+
+  .question-area {
+    padding: 22px 14px;
+  }
+
+  .question-head {
+    gap: 10px;
+  }
+
+  .question-head h1 {
+    font-size: 23px;
+  }
+
+  .timer-box {
+    min-width: 90px;
+
+    padding: 8px 11px;
+  }
+
+  .timer-box b {
+    font-size: 18px;
+  }
+
+  .question-panel {
+    padding: 18px;
+
+    border-radius: 13px;
+  }
+
+  .prompt {
+    font-size: 17px;
+
+    line-height: 1.5;
+  }
+
+  .content-row {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+  }
+
+  .media-panel {
+    min-height: 220px;
+  }
+
+  .media-text {
+    font-size: 21px;
+
+    padding: 25px;
+  }
+
+  .option {
+    min-height: 56px;
+
+    font-size: 15px;
+
+    padding: 11px 13px;
+  }
+
+  .controls {
+    gap: 8px;
+
+    justify-content: space-between;
+
+    margin-top: 24px;
+  }
+
+  .controls button {
+    padding: 10px 12px;
+
+    font-size: 13px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .all-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .content-row.picture-question {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+  }
+
+  .content-row.picture-question .media-panel {
+    min-height: 220px;
+  }
+
+  .content-row.picture-question .options.picture-options {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+  }
+
+  .content-row.picture-question .picture-option {
+    min-height: 120px;
+  }
+}
