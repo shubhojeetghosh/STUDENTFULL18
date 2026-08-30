@@ -489,25 +489,21 @@ body {
 
   <div class="nav-top">
 
-    <div class="profile-card">
+  <div class="profile-card">
+ <div class="profile-avatar" id="profileAvatar">
+  --
+</div>
 
-      <div class="profile-avatar">
-        SL
-      </div>
+<div class="profile-details">
+  <div class="profile-name" id="profileName">
+    Loading...
+  </div>
 
-      <div class="profile-details">
-
-        <div class="profile-name">
-          Akash Bhagat
-        </div>
-
-        <div class="profile-roll">
-          Roll No. 2023000950
-        </div>
-
-      </div>
-
-    </div>
+  <div class="profile-roll" id="profileRoll">
+    Loading...
+  </div>
+</div>
+</div>
 
   </div>
 
@@ -553,6 +549,56 @@ body {
 </button>
 
 <script>
+  async function loadStudentProfile() {
+  try {
+    const token = localStorage.getItem("access_token");
+
+    if (!token) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    const response = await fetch("http://127.0.0.1:8000/auth/profile", {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to load student profile");
+    }
+
+    const student = await response.json();
+
+    const name = student.name || student.full_name || student.username || "Student";
+    const rollNo = student.roll_no || student.roll_number || "";
+
+    document.getElementById("profileName").textContent = name;
+
+    document.getElementById("profileRoll").textContent =
+      rollNo ? `Roll No. ${rollNo}` : "";
+
+    // Generate initials
+    const initials = name
+      .split(" ")
+      .filter(Boolean)
+      .map(word => word[0])
+      .join("")
+      .substring(0, 2)
+      .toUpperCase();
+
+    document.getElementById("profileAvatar").textContent = initials;
+
+  } catch (error) {
+    console.error("Profile loading error:", error);
+
+    document.getElementById("profileName").textContent = "Student";
+    document.getElementById("profileRoll").textContent = "";
+  }
+}
+
+loadStudentProfile();
 function makeButton(n){
   const b=document.createElement("button");
   b.className="nav-q";

@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.core.database import Base
+from backend.authentication.core.database import Base
 
 
 class PasswordResetOTP(Base):

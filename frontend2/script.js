@@ -1,17 +1,20 @@
-const API_BASE_URL = "http://10.0.3.192:8000";
+const API_BASE_URL = window.EPS_API?.baseUrl || "http://127.0.0.1:8000";
 const API_ENDPOINTS = {
 
   login:
     `${API_BASE_URL}/auth/login`,
 
   verifyOtp:
-    `${API_BASE_URL}/auth/verify_otp`,
+    `${API_BASE_URL}/auth/verify-otp`,
 
   register:
     `${API_BASE_URL}/auth/register`,
 
   forgotPassword:
     `${API_BASE_URL}/auth/forgot-password`,
+
+  resetPassword:
+    `${API_BASE_URL}/auth/reset-password`,
 
   profile:
     `${API_BASE_URL}/auth/profile`
@@ -745,18 +748,6 @@ document.addEventListener(
 
   }
 );
-const sendOtpButton = document.getElementById("sendOtpButton");
-
-if (sendOtpButton) {
-  sendOtpButton.addEventListener("click", function (event) {
-    event.preventDefault();
-
-    window.location.href = "verify-otp.html";
-  });
-}
-const API_BASE_URL = "http://10.0.3.192:8000";
-
-
 /* =========================================================
    PASSWORD SHOW / HIDE
    ========================================================= */
@@ -782,7 +773,293 @@ function togglePassword(inputId, button) {
   }
 }
 
+/* =========================================================
+   REGISTER
+   Connect register.html to POST /auth/register
+   ========================================================= */
 
+const registerForm = document.getElementById("registerForm");
+
+if (registerForm) {
+
+  registerForm.addEventListener("submit", async function (event) {
+
+    event.preventDefault();
+
+    console.log("Register form submitted");
+
+
+    // ==========================================
+    // GET FORM VALUES
+    // ==========================================
+
+    const name =
+      document.getElementById("registerName").value.trim();
+
+    const email =
+      document.getElementById("registerEmail").value.trim();
+
+    const password =
+      document.getElementById("registerPassword").value;
+
+    const confirmPassword =
+      document.getElementById("confirmPassword").value;
+
+    const messageBox =
+      document.getElementById("messageBox");
+
+    const registerButton =
+      document.getElementById("registerButton");
+
+
+    // ==========================================
+    // FRONTEND VALIDATION
+    // ==========================================
+
+    if (!name) {
+
+      if (messageBox) {
+        messageBox.textContent =
+          "Please enter your full name.";
+      }
+
+      return;
+    }
+
+
+    if (!email) {
+
+      if (messageBox) {
+        messageBox.textContent =
+          "Please enter your email.";
+      }
+
+      return;
+    }
+
+
+    if (!password) {
+
+      if (messageBox) {
+        messageBox.textContent =
+          "Please enter a password.";
+      }
+
+      return;
+    }
+
+
+    if (password !== confirmPassword) {
+
+      if (messageBox) {
+        messageBox.textContent =
+          "Passwords do not match.";
+      }
+
+      return;
+    }
+
+
+    // ==========================================
+    // DISABLE BUTTON
+    // ==========================================
+
+    if (registerButton) {
+
+      registerButton.disabled = true;
+
+      registerButton.textContent =
+        "Creating Account...";
+
+    }
+
+
+    if (messageBox) {
+      messageBox.textContent =
+        "Creating your account...";
+    }
+
+
+    try {
+
+      // ==========================================
+      // BACKEND REGISTER API
+      // ==========================================
+
+      const response = await fetch(
+        "http://127.0.0.1:8000/auth/register",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+
+          // IMPORTANT:
+          // Swagger confirmed the backend accepts
+          // ONLY name, email and password.
+
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            password: password
+          })
+        }
+      );
+
+
+      console.log(
+        "Register HTTP status:",
+        response.status
+      );
+
+
+      // ==========================================
+      // READ RESPONSE
+      // ==========================================
+
+      const data = await response.json();
+
+      console.log(
+        "Register API response:",
+        data
+      );
+
+
+      // ==========================================
+      // BACKEND ERROR
+      // ==========================================
+
+      if (!response.ok) {
+
+        let errorMessage =
+          "Registration failed.";
+
+
+        if (data.detail) {
+
+          if (Array.isArray(data.detail)) {
+
+            errorMessage =
+              data.detail
+                .map(error =>
+                  error.msg || "Invalid input"
+                )
+                .join(", ");
+
+          } else {
+
+            errorMessage =
+              data.detail;
+
+          }
+
+        } else if (data.message) {
+
+          errorMessage =
+            data.message;
+
+        }
+
+
+        if (messageBox) {
+
+          messageBox.textContent =
+            errorMessage;
+
+          messageBox.className =
+            "message-box error";
+
+        } else {
+
+          alert(errorMessage);
+
+        }
+
+        return;
+      }
+
+
+      // ==========================================
+      // REGISTRATION SUCCESS
+      // ==========================================
+
+      if (messageBox) {
+
+        messageBox.textContent =
+          data.message ||
+          "Account created successfully!";
+
+        messageBox.className =
+          "message-box success";
+
+      }
+
+
+      console.log(
+        "Registration successful:",
+        data
+      );
+
+
+      // ==========================================
+      // REDIRECT TO LOGIN
+      // ==========================================
+
+      setTimeout(function () {
+
+        window.location.href =
+          "login.html";
+
+      }, 1000);
+
+
+    } catch (error) {
+
+      console.error(
+        "Register error:",
+        error
+      );
+
+
+      if (messageBox) {
+
+        messageBox.textContent =
+          "Could not connect to backend. Make sure FastAPI is running.";
+
+        messageBox.className =
+          "message-box error";
+
+      } else {
+
+        alert(
+          "Could not connect to backend. Make sure FastAPI is running."
+        );
+
+      }
+
+
+    } finally {
+
+      // ==========================================
+      // ENABLE BUTTON AGAIN
+      // ==========================================
+
+      if (registerButton) {
+
+        registerButton.disabled = false;
+
+        registerButton.textContent =
+          "Create Account";
+
+      }
+
+    }
+
+  });
+
+}
 /* =========================================================
    LOGIN
    ========================================================= */
@@ -921,21 +1198,52 @@ if (loginForm) {
 
 
 /* =========================================================
-   SEND OTP PAGE NAVIGATION
+   PASSWORD RECOVERY
    ========================================================= */
 
-const sendOtpButton =
-  document.getElementById("sendOtpButton");
+const sendOtpButton = document.getElementById("sendOtpButton");
 
 if (sendOtpButton) {
-
-  sendOtpButton.addEventListener("click", function () {
-
-    window.location.href =
-      "verify-otp.html";
-
+  sendOtpButton.addEventListener("click", async function () {
+    const email = document.getElementById("forgotEmail").value.trim();
+    const messageBox = document.getElementById("messageBox");
+    if (!email) {
+      messageBox.textContent = "Enter your registered email address.";
+      return;
+    }
+    sendOtpButton.disabled = true;
+    try {
+      await window.EPS_API.auth.forgotPassword({ email });
+      localStorage.setItem("password_reset_email", email);
+      window.location.href = "verify-otp.html";
+    } catch (error) {
+      messageBox.textContent = error.message || "Unable to send an OTP.";
+    } finally {
+      sendOtpButton.disabled = false;
+    }
   });
+}
 
+const verifyOtpForm = document.getElementById("verifyOtpForm");
+
+if (verifyOtpForm) {
+  verifyOtpForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    const email = localStorage.getItem("password_reset_email");
+    const otp = document.getElementById("otp").value.trim();
+    const messageBox = document.getElementById("messageBox");
+    if (!email) {
+      messageBox.textContent = "Restart password recovery and enter your email address.";
+      return;
+    }
+    try {
+      await window.EPS_API.auth.verifyOtp({ email, otp });
+      localStorage.setItem("password_reset_otp", otp);
+      window.location.href = "reset-pass.html";
+    } catch (error) {
+      messageBox.textContent = error.message || "Unable to verify the OTP.";
+    }
+  });
 }
 
 

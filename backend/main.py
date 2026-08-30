@@ -124,3 +124,20 @@ def health():
         "status": "ok",
         "database": "postgresql" if USE_DB else "in-memory",
     }
+
+
+# The root main.py is the consolidated public application entry point.  Keep
+# this legacy module importable for existing tests and deployment commands.
+# Load it by its exact path: pytest may otherwise resolve ``main`` to
+# app/main.py while collecting tests.
+from importlib.util import module_from_spec, spec_from_file_location
+from pathlib import Path
+
+_root_main_path = Path(__file__).resolve().parents[1] / "main.py"
+_root_main_spec = spec_from_file_location("eps_topik_root_main", _root_main_path)
+if _root_main_spec is None or _root_main_spec.loader is None:
+    raise ImportError(f"Unable to load consolidated app from {_root_main_path}")
+_root_main = module_from_spec(_root_main_spec)
+_root_main_spec.loader.exec_module(_root_main)
+app = _root_main.app
+create_app = _root_main.create_app

@@ -8,7 +8,7 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0">
 
-  <title>EPS TOPIK - Forgot Password</title>
+  <title>EPS TOPIK - Verify OTP</title>
 
   <link rel="stylesheet" href="style.css">
 
@@ -45,16 +45,16 @@
     <div class="auth-heading">
 
       <p class="auth-eyebrow">
-        PASSWORD RECOVERY
+        VERIFY YOUR IDENTITY
       </p>
 
       <h2>
-        Forgot password?
+        Enter OTP
       </h2>
 
       <p>
-        Enter your registered email address.
-        We will send you a 6-digit verification OTP.
+        Enter the 6-digit verification code
+        sent to your registered email.
       </p>
 
     </div>
@@ -66,20 +66,23 @@
     ></div>
 
 
-    <form id="forgotPasswordForm">
+    <form id="verifyOtpForm">
 
 
       <div class="form-group">
 
-        <label for="forgotEmail">
-          Registered Email
+        <label for="otp">
+          Verification Code
         </label>
 
         <input
-          type="email"
-          id="forgotEmail"
-          placeholder="Enter your registered email"
-          autocomplete="email"
+          type="text"
+          id="otp"
+          class="otp-input"
+          placeholder="000000"
+          maxlength="6"
+          inputmode="numeric"
+          autocomplete="one-time-code"
           required
         >
 
@@ -87,12 +90,11 @@
 
 
       <button
-        type="button"
-        id="sendOtpButton"
+        type="submit"
+        id="verifyOtpButton"
         class="auth-submit"
-       
       >
-        Send OTP
+        Verify OTP
       </button>
 
     </form>
@@ -100,20 +102,20 @@
 
     <p class="auth-switch">
 
-      Remember your password?
+      Didn't receive the code?
 
-      <a href="login.html">
-        Log in
+      <a href="forgot-pass.html">
+        Send again
       </a>
 
     </p>
 
 
     <a
-      href="login.html"
+      href="forgot-pass.html"
       class="auth-back"
     >
-      ← Back to login
+      ← Change email
     </a>
 
 
@@ -122,6 +124,7 @@
 </main>
 
 
+<script src="js/api.js"></script>
 <script src="script.js"></script>
 
 </body>

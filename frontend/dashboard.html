@@ -45,19 +45,15 @@
         class="user-avatar"
         id="navUserAvatar"
       >
-        MR
+      --
       </div>
 
 
       <div class="user-info">
 
-        <strong id="navUserName">
-          Akash Bhagat 
-        </strong>
-
-        <span id="navStudentId">
-          2023000950
-        </span>
+        <strong id="navUserName"></strong>
+        
+        <span id="navStudentId"></span>
 
       </div>
 
@@ -101,7 +97,7 @@
         <h2>
           Welcome back,
           <span id="dashboardUserName">
-            Akash Bhagat.
+          
           </span>
         </h2>
 
@@ -145,9 +141,9 @@
             Tests Completed
           </span>
 
-          <strong id="testsCompleted">
-            4
-          </strong>
+         <strong id="testsCompleted">
+    --
+</strong>
 
         </div>
 
@@ -170,8 +166,8 @@
           </span>
 
           <strong id="averageScore">
-            82%
-          </strong>
+    --
+</strong>
 
         </div>
 
@@ -193,9 +189,9 @@
             Best Score
           </span>
 
-          <strong id="bestScore">
-            90%
-          </strong>
+         <strong id="bestScore">
+    --
+</strong>
 
         </div>
 
@@ -217,9 +213,9 @@
             Tests Available
           </span>
 
-          <strong>
-            20+
-          </strong>
+         <strong id="testsAvailable">
+    --
+</strong>
 
         </div>
 
@@ -236,286 +232,48 @@
 
     <section class="dashboard-grid">
 
-
-      <!-- ===================================================
-           LEFT SIDE - AVAILABLE TESTS
-           =================================================== -->
-
-      <div
+    <!-- LEFT SIDE - AVAILABLE TESTS -->
+    <div
         class="dashboard-main-card"
         id="tests"
-      >
-
+    >
 
         <!-- Header -->
-
         <div class="card-header">
 
-          <div>
+            <div>
 
-            <span class="small-heading">
-              PRACTICE TESTS
-            </span>
+                <span class="small-heading">
+                    PRACTICE TESTS
+                </span>
 
-            <h3>
-              Available Tests
-            </h3>
+                <h3>
+                    Available Tests
+                </h3>
 
-          </div>
+            </div>
 
-
-          <a
-            href="#tests"
-            class="view-all"
-          >
-            View All →
-          </a>
+            <a
+                href="#tests"
+                class="view-all"
+            >
+                View All →
+            </a>
 
         </div>
 
 
+        <!-- Dynamic tests -->
+        <div id="availableTestsList">
 
-        <!-- ================= TEST 01 ================= -->
-
-        <article class="test-card">
-
-          <div class="test-number">
-            01
-          </div>
-
-
-          <div class="test-details">
-
-            <div class="test-title-row">
-
-              <h4>
-                Set No. 01
-              </h4>
-
-              <span class="free-badge">
-                FREE
-              </span>
-
-            </div>
-
-
-            <p>
-              Korean Vowels &amp; Consonants
+            <p style="text-align:center; padding:30px;">
+                Loading tests...
             </p>
 
+        </div>
 
-            <div class="test-meta">
-
-              <span>
-                40 Questions
-              </span>
-
-              <span>
-                20 Reading
-              </span>
-
-              <span>
-                20 Listening
-              </span>
-
-            </div>
-
-          </div>
-
-
-          <button
-            type="button"
-            class="test-button"
-            onclick="startTest('Set No. 01')"
-          >
-            Start Test
-          </button>
-
-        </article>
-
-
-
-        <!-- ================= TEST 02 ================= -->
-
-        <article class="test-card">
-
-          <div class="test-number">
-            02
-          </div>
-
-
-          <div class="test-details">
-
-            <div class="test-title-row">
-
-              <h4>
-                Set No. 02
-              </h4>
-
-              <span class="locked-badge">
-                AVAILABLE
-              </span>
-
-            </div>
-
-
-            <p>
-              EPS TOPIK Vocabulary &amp; Grammar
-            </p>
-
-
-            <div class="test-meta">
-
-              <span>
-                40 Questions
-              </span>
-
-              <span>
-                Reading
-              </span>
-
-              <span>
-                Listening
-              </span>
-
-            </div>
-
-          </div>
-
-
-          <button
-            type="button"
-            class="test-button"
-            onclick="startTest('Set No. 02')"
-          >
-            Start Test
-          </button>
-
-        </article>
-
-
-
-        <!-- ================= TEST 03 ================= -->
-
-        <article class="test-card">
-
-          <div class="test-number">
-            03
-          </div>
-
-
-          <div class="test-details">
-
-            <div class="test-title-row">
-
-              <h4>
-                Set No. 03
-              </h4>
-
-              <span class="locked-badge">
-                AVAILABLE
-              </span>
-
-            </div>
-
-
-            <p>
-              Korean Reading &amp; Listening Practice
-            </p>
-
-
-            <div class="test-meta">
-
-              <span>
-                40 Questions
-              </span>
-
-              <span>
-                Reading
-              </span>
-
-              <span>
-                Listening
-              </span>
-
-            </div>
-
-          </div>
-
-
-          <button
-            type="button"
-            class="test-button"
-            onclick="startTest('Set No. 03')"
-          >
-            Start Test
-          </button>
-
-        </article>
-
-
-
-        <!-- ================= TEST 04 ================= -->
-
-        <article class="test-card">
-
-          <div class="test-number">
-            04
-          </div>
-
-
-          <div class="test-details">
-
-            <div class="test-title-row">
-
-              <h4>
-                Set No. 04
-              </h4>
-
-              <span class="locked-badge">
-                AVAILABLE
-              </span>
-
-            </div>
-
-
-            <p>
-              EPS TOPIK Full Practice Test
-            </p>
-
-
-            <div class="test-meta">
-
-              <span>
-                40 Questions
-              </span>
-
-              <span>
-                Reading
-              </span>
-
-              <span>
-                Listening
-              </span>
-
-            </div>
-
-          </div>
-
-
-          <button
-            type="button"
-            class="test-button"
-            onclick="startTest('Set No. 04')"
-          >
-            Start Test
-          </button>
-
-        </article>
-
-
-      </div>
-
+    </div>
+    
 
 
       <!-- ===================================================
@@ -535,7 +293,7 @@
               class="large-avatar"
               id="profileAvatar"
             >
-              MR
+              --
             </div>
 
 
@@ -546,11 +304,11 @@
               </span>
 
               <h3 id="sidebarUserName">
-                Akash bhagat
+              
               </h3>
 
               <p id="sidebarStudentId">
-                2023000950
+              
               </p>
 
             </div>
@@ -601,9 +359,9 @@
 
             <div>
 
-              <strong>
-                68%
-              </strong>
+             <strong id="progressPercentage">
+  0%
+</strong>
 
               <span>
                 Completed
@@ -625,9 +383,9 @@
                 Tests completed
               </span>
 
-              <strong>
-                4 / 20
-              </strong>
+              <strong id="progressTestsCompleted">
+  0 / 0
+</strong>
 
             </div>
 
@@ -638,9 +396,9 @@
                 Average score
               </span>
 
-              <strong>
-                82%
-              </strong>
+              <strong id="progressAverageScore">
+  0%
+</strong>
 
             </div>
 
@@ -670,9 +428,9 @@
               </div>
 
 
-              <span class="chart-growth">
-                ↑ 12%
-              </span>
+             <span class="chart-growth" id="chartGrowth">
+  ↑ 0%
+</span>
 
             </div>
 
@@ -870,114 +628,28 @@
 
 
 
-      <div class="results-table">
+     <div class="results-table">
+
+  <div class="result-row result-header">
+    <span>Test</span>
+    <span>Date</span>
+    <span>Score</span>
+    <span>Result</span>
+  </div>
+
+  <div id="recentResultsBody">
+    <div class="result-row">
+      <span>Loading...</span>
+      <span></span>
+      <strong></strong>
+      <span></span>
+    </div>
+  </div>
+
+</div>
 
 
-        <!-- Table Header -->
-
-        <div class="result-row result-header">
-
-          <span>
-            Test
-          </span>
-
-          <span>
-            Date
-          </span>
-
-          <span>
-            Score
-          </span>
-
-          <span>
-            Result
-          </span>
-
-        </div>
-
-
-
-        <!-- Result 01 -->
-
-        <div class="result-row">
-
-          <span>
-            Set No. 01
-          </span>
-
-          <span>
-            12 Aug 2026
-          </span>
-
-          <strong>
-            87.5%
-          </strong>
-
-          <span class="passed">
-            Passed
-          </span>
-
-        </div>
-
-
-
-        <!-- Result 02 -->
-
-        <div class="result-row">
-
-          <span>
-            Set No. 02
-          </span>
-
-          <span>
-            08 Aug 2026
-          </span>
-
-          <strong>
-            82.5%
-          </strong>
-
-          <span class="passed">
-            Passed
-          </span>
-
-        </div>
-
-
-
-        <!-- Result 03 -->
-
-        <div class="result-row">
-
-          <span>
-            Set No. 03
-          </span>
-
-          <span>
-            05 Aug 2026
-          </span>
-
-          <strong>
-            75%
-          </strong>
-
-          <span class="passed">
-            Passed
-          </span>
-
-        </div>
-
-
-      </div>
-
-
-    </section>
-
-
-  </main>
-
-
-
+      
   <!-- =====================================================
        FOOTER
        ===================================================== -->

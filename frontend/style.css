@@ -2536,7 +2536,7 @@ button {
    RESPONSIVE
    ========================================================= */
 
-@media (max-width: 1050px) {
+@media (max-width: 900px) {
 
   .daily-highlight {
     display: none;

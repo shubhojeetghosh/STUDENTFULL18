@@ -3,13 +3,13 @@ from datetime import datetime, timedelta, timezone
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from app.core.database import get_db
-from app.core.email import send_otp_email
-from app.core.otp import generate_otp
-from app.core.security import hash_otp
-from app.models.password_reset_otp import PasswordResetOTP
-from app.models.user import User
-from app.schemas.password_reset import ForgotPasswordRequest
+from backend.authentication.core.database import get_db
+from backend.authentication.core.email import send_otp_email
+from backend.authentication.core.otp import generate_otp
+from backend.authentication.core.security import hash_otp
+from backend.authentication.models.password_reset_otp import PasswordResetOTP
+from backend.authentication.models.user import User
+from backend.authentication.schemas.password_reset import ForgotPasswordRequest
 
 
 router = APIRouter(

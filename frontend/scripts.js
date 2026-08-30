@@ -3,7 +3,7 @@
 ========================================================= */
 
 const API_BASE_URL =
-  window.API_BASE_URL || "http://192.168.29.241:8000";
+  window.EPS_API?.baseUrl || "http://127.0.0.1:8000";
 
 const QUIZ_ID =
   new URLSearchParams(window.location.search).get("quiz") || "exam1";
@@ -13,11 +13,95 @@ const QUIZ_ID =
    STUDENT
 ========================================================= */
 
-const STUDENT = {
-  name: "Sun Lee",
-  rollNo: "2023000950",
-  initials: "SL"
-};
+async function renderStudentProfile() {
+
+  const name = $("studentName");
+  const roll = $("studentId");
+  const initials = $("studentInitials");
+
+  const headerName = $("headerStudentName");
+  const headerRoll = $("headerStudentRoll");
+  const headerInitials = $("headerInitials");
+
+  const token = localStorage.getItem("access_token");
+
+  if (!token) {
+    console.error("No access token found.");
+    return;
+  }
+
+  try {
+
+    const response = await fetch(
+      `${API_BASE_URL}/auth/profile`,
+      {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Profile request failed: ${response.status}`);
+    }
+
+    const student = await response.json();
+
+    console.log("PROFILE RESPONSE:", student);
+
+    const studentName =
+      student.name ||
+      student.full_name ||
+      student.fullName ||
+      "";
+
+    const studentRoll =
+      student.student_id ||
+      student.studentId ||
+      student.roll_no ||
+      student.rollNo ||
+      "";
+
+    const studentInitials =
+      studentName
+        .split(" ")
+        .filter(Boolean)
+        .map(word => word[0])
+        .join("")
+        .substring(0, 2)
+        .toUpperCase();
+
+    // Main profile
+    if (name)
+      name.textContent = studentName;
+
+    if (roll)
+      roll.textContent = studentRoll;
+
+    if (initials)
+      initials.textContent = studentInitials;
+
+    // Header profile
+    if (headerName)
+      headerName.textContent = studentName;
+
+    if (headerRoll)
+      headerRoll.textContent = studentRoll;
+
+    if (headerInitials)
+      headerInitials.textContent = studentInitials;
+
+  } catch (error) {
+
+    console.error(
+      "Could not load student profile:",
+      error
+    );
+
+  }
+}
 
 
 /* =========================================================
@@ -161,32 +245,6 @@ function normalizeQuestion(x) {
   };
 }
 
-
-/* =========================================================
-   STUDENT PROFILE
-========================================================= */
-
-function renderStudentProfile() {
-
-  const name =
-    $("studentName");
-
-  const roll =
-    $("studentId");
-
-  const initials =
-    $("studentInitials");
-
-
-  if (name)
-    name.textContent = STUDENT.name;
-
-  if (roll)
-    roll.textContent = STUDENT.rollNo;
-
-  if (initials)
-    initials.textContent = STUDENT.initials;
-}
 
 
 /* =========================================================
@@ -579,12 +637,10 @@ $("sectionBar").firstChild.textContent =
 
 
   $("nextBtn").textContent =
-    current === questions.length
-      ? "Submit >>"
-      : "Next >>";
+  current === questions.length
+    ? "Submit Answer"
+    : "Next >>";
 
-
-  renderNavigation();
 
   updateStats();
 }
@@ -656,82 +712,7 @@ async function selectAnswer(
    QUESTION NAVIGATION
 ========================================================= */
 
-function renderNavigation() {
 
-  const reading =
-    $("readingGrid");
-
-  const listening =
-    $("listeningGrid");
-
-
-  reading.innerHTML = "";
-
-  listening.innerHTML = "";
-
-
-  questions.forEach(
-    item => {
-
-      const button =
-        document.createElement(
-          "button"
-        );
-
-
-      button.className =
-        "number";
-
-
-      button.textContent =
-        item.id;
-
-
-      if (
-        item.id === current
-      ) {
-
-        button.classList.add(
-          "current"
-        );
-
-      }
-
-
-      if (
-        answers[item.backendId] !==
-        undefined
-      ) {
-
-        button.classList.add(
-          "answered"
-        );
-
-      }
-
-
-      button.onclick =
-        () => {
-
-          current =
-            item.id;
-
-          render();
-
-        };
-
-
-      (
-        item.section === "reading"
-          ? reading
-          : listening
-      ).appendChild(
-        button
-      );
-
-    }
-  );
-}
 
 
 /* =========================================================
@@ -809,82 +790,7 @@ function previous() {
    ALL QUESTIONS
 ========================================================= */
 
-function openAllQuestions() {
 
-  const grid =
-    $("allGrid");
-
-
-  grid.innerHTML = "";
-
-
-  questions.forEach(
-    item => {
-
-      const button =
-        document.createElement(
-          "button"
-        );
-
-
-      button.className =
-        "number";
-
-
-      button.textContent =
-        item.id;
-
-
-      if (
-        item.id === current
-      ) {
-
-        button.classList.add(
-          "current"
-        );
-
-      }
-
-
-      if (
-        answers[item.backendId] !==
-        undefined
-      ) {
-
-        button.classList.add(
-          "answered"
-        );
-
-      }
-
-
-      button.onclick =
-        () => {
-
-          current =
-            item.id;
-
-          $("allModal")
-            .classList
-            .add("hidden");
-
-          render();
-
-        };
-
-
-      grid.appendChild(
-        button
-      );
-
-    }
-  );
-
-
-  $("allModal")
-    .classList
-    .remove("hidden");
-}
 
 
 /* =========================================================
@@ -1250,48 +1156,60 @@ async function initializeExam() {
    BUTTON EVENTS
 ========================================================= */
 
-$("prevBtn").onclick =
-  previous;
+const prevBtn = $("prevBtn");
+const nextBtn = $("nextBtn");
+
+if (prevBtn) {
+  prevBtn.onclick = previous;
+}
+
+if (nextBtn) {
+  nextBtn.onclick = next;
+}
 
 
-$("nextBtn").onclick =
-  next;
+const confirmSubmit = $("confirmSubmit");
+
+if (confirmSubmit) {
+  confirmSubmit.onclick = submitExam;
+}
 
 
-$("allBtn").onclick =
-  openAllQuestions;
+const cancelSubmit = $("cancelSubmit");
 
+if (cancelSubmit) {
+  cancelSubmit.onclick = () => {
 
-$("submitBtn").onclick =
-  openSubmit;
+    const submitModal = $("submitModal");
 
-
-$("confirmSubmit").onclick =
-  submitExam;
-
-
-$("cancelSubmit").onclick =
-  () => {
-
-    $("submitModal")
-      .classList
-      .add("hidden");
-
-  };
-
-
-$("audioButton").onclick =
-  playAudio;
-
-
-$("closeResult").onclick =
-  () => {
-
-    $("resultModal")
-      .classList
-      .add("hidden");
+    if (submitModal) {
+      submitModal.classList.add("hidden");
+    }
 
   };
+}
+
+
+const audioButton = $("audioButton");
+
+if (audioButton) {
+  audioButton.onclick = playAudio;
+}
+
+
+const closeResult = $("closeResult");
+
+if (closeResult) {
+  closeResult.onclick = () => {
+
+    const resultModal = $("resultModal");
+
+    if (resultModal) {
+      resultModal.classList.add("hidden");
+    }
+
+  };
+}
 
 
 document

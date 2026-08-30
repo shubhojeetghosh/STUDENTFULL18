@@ -547,7 +547,6 @@ body {
 
 <body>
 
-<body>
 
 <div class="instructions-page">
 
@@ -564,13 +563,12 @@ body {
 
     <div class="header-profile">
 
-      <div class="header-avatar">SL</div>
+    <div class="header-avatar" id="headerInitials"></div>
 
-      <div class="header-user">
-        <strong>Sun Lee</strong>
-        <span>2023000950</span>
-      </div>
-
+<div class="header-user">
+  <strong id="headerStudentName"></strong>
+  <span id="headerStudentRoll"></span>
+</div>
     </div>
 
   </div>
@@ -598,19 +596,15 @@ body {
 
   <div class="profile-left">
 
-    <div class="profile-avatar">
-      SL
-    </div>
+  <div class="profile-avatar" id="studentInitials"></div>
 
-    <div class="profile-details">
-      <div class="profile-name">
-        Sun Lee
-      </div>
+<div class="profile-details">
+  <div class="profile-name" id="studentName"></div>
 
-      <div class="profile-roll">
-        Roll No. 2023000950
-      </div>
-    </div>
+  <div class="profile-roll">
+    Roll No. <span id="studentId"></span>
+  </div>
+</div>
 
   </div>
 
@@ -750,6 +744,8 @@ if (backBtn) {
   });
 }
 </script>
+
+<script src="scripts.js"></script>
 
 </body>
 </html>

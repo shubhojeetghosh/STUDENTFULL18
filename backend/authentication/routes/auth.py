@@ -8,24 +8,27 @@ from datetime import datetime, timedelta
 import secrets
 
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel, EmailStr, Field
 from sqlalchemy.orm import Session
 
-from app.core.database import get_db
+from backend.authentication.core.database import get_db
 
-from app.core.security import (
+from backend.authentication.core.security import (
     hash_password,
     verify_password,
     create_access_token,
     hash_otp,
     verify_otp,
+    decode_access_token,
 )
 
-from app.core.email import send_otp_email
+from backend.authentication.core.email import send_otp_email
 
-from app.models.user import User
-from app.models.password_reset_otp import PasswordResetOTP
+from backend.authentication.models.user import User
+from backend.authentication.models.password_reset_otp import PasswordResetOTP
 
+security = HTTPBearer()
 
 # ============================================================
 # ROUTER
@@ -86,20 +89,13 @@ class ResetPasswordRequest(BaseModel):
     )
 
 
-# ============================================================
-# REGISTER
-# ============================================================
-
 @router.post("/register")
 def register(
     data: RegisterRequest,
     db: Session = Depends(get_db)
 ):
 
-    # --------------------------------------------------------
     # 1. Check whether email already exists
-    # --------------------------------------------------------
-
     existing_user = (
         db.query(User)
         .filter(User.email == data.email)
@@ -107,66 +103,47 @@ def register(
     )
 
     if existing_user:
-
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Email already registered"
         )
 
-    # --------------------------------------------------------
     # 2. Hash password
-    # --------------------------------------------------------
+    hashed_password = hash_password(data.password)
 
-    hashed_password = hash_password(
-        data.password
-    )
-
-    # --------------------------------------------------------
     # 3. Create user
-    #
-    # IMPORTANT:
-    # name is required because your users.name column
-    # is NOT NULL.
-    # --------------------------------------------------------
-
     new_user = User(
         name=data.name,
         email=data.email,
         password_hash=hashed_password
     )
 
-    # --------------------------------------------------------
     # 4. Save user
-    # --------------------------------------------------------
-
     try:
-
         db.add(new_user)
-
         db.commit()
-
         db.refresh(new_user)
 
-    except Exception:
-
+    except Exception as e:
         db.rollback()
 
+        print("========================================")
+        print("REGISTER ERROR:", repr(e))
+        print("REGISTER ERROR TYPE:", type(e).__name__)
+        print("========================================")
+
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to create user"
+            status_code=500,
+            detail=f"Failed to create user: {str(e)}"
         )
 
-    # --------------------------------------------------------
     # 5. Return response
-    # --------------------------------------------------------
-
     return {
         "message": "User registered successfully",
         "user_id": new_user.id,
         "name": new_user.name,
         "email": new_user.email
     }
-
 
 # ============================================================
 # LOGIN
@@ -223,14 +200,68 @@ def login(
     )
 
     # --------------------------------------------------------
-    # 4. Return token
+    # 4. Return token + user information
     # --------------------------------------------------------
 
     return {
         "access_token": access_token,
-        "token_type": "bearer"
+        "token_type": "bearer",
+        "user_id": user.id,
+        "name": user.name,
+        "email": user.email,
+        "role": user.role
     }
 
+# ============================================================
+# GET CURRENT USER PROFILE
+# ============================================================
+
+@router.get("/profile")
+def get_profile(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+    db: Session = Depends(get_db)
+):
+
+    token = credentials.credentials
+
+    try:
+        payload = decode_access_token(token)
+
+        user_id = payload.get("sub")
+
+        if not user_id:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid authentication token"
+            )
+
+        user = (
+            db.query(User)
+            .filter(User.id == int(user_id))
+            .first()
+        )
+
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="User not found"
+            )
+
+        return {
+            "id": user.id,
+            "name": user.name,
+            "email": user.email,
+            "role": user.role
+        }
+
+    except HTTPException:
+        raise
+
+    
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid authentication token"
+        )
 
 # ============================================================
 # FORGOT PASSWORD

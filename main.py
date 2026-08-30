@@ -1,5 +1,7 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
+from backend.authentication.routes.auth import router as auth_router
 from backend.quiz_engine.repository.in_memory import (
     InMemoryAttemptRepository,
     InMemoryAudioTracker,
@@ -13,9 +15,22 @@ from backend.quiz_engine.repository.in_memory import (
 
 def create_app() -> FastAPI:
     app = FastAPI(
-        title="Inseed Quiz Platform",
-        description="Quiz engine API — Backend Developer 2",
-        version="0.1.0",
+        title="EPS-TOPIK Exam Platform API",
+        description="Authentication and quiz engine API for the EPS-TOPIK exam platform.",
+        version="1.0.0",
+    )
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[
+            "http://localhost:5500",
+            "http://127.0.0.1:5500",
+            "http://localhost:5501",
+            "http://127.0.0.1:5501",
+        ],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
     )
 
     # ── Shared repository instances ──────
@@ -29,13 +44,10 @@ def create_app() -> FastAPI:
     _seed_sample_exam(app.state.exam_repo)
 
     # ── Routers ─────────────────────────
-    # Dev 1 will add:
-    #   app.include_router(auth_router)
-    # Dev 3 will add:
-    #   app.include_router(results_router)
     from backend.quiz_engine.routes.quiz_routes import router as quiz_router
     from backend.quiz_engine.routes.attempt_routes import router as attempt_router
 
+    app.include_router(auth_router)
     app.include_router(quiz_router)
     app.include_router(attempt_router)
 
@@ -87,4 +99,9 @@ app = create_app()
 
 @app.get("/")
 def root():
-    return {"status": "ok", "service": "inseed-quiz-backend"}
+    return {"status": "ok", "service": "eps-topik-exam-platform"}
+
+
+@app.get("/health")
+def health():
+    return {"status": "healthy"}

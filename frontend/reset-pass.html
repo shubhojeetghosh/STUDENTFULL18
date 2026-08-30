@@ -479,6 +479,7 @@
   </div>
 
 
+  <script src="js/api.js"></script>
   <script>
 
     // Show / hide password
@@ -503,7 +504,7 @@
     // Reset password form
     document
       .getElementById("resetForm")
-      .addEventListener("submit", function(event) {
+      .addEventListener("submit", async function(event) {
 
         event.preventDefault();
 
@@ -545,15 +546,28 @@
         errorMessage.style.display = "none";
 
 
-        /*
-          Here you would normally send the new password
-          to your backend/database.
+        const email = localStorage.getItem("password_reset_email");
+        const otp = localStorage.getItem("password_reset_otp");
 
-          After the password is successfully changed,
-          redirect the user to the login page.
-        */
+        if (!email || !otp) {
+          errorMessage.textContent = "Restart password recovery and verify your OTP first.";
+          errorMessage.style.display = "block";
+          return;
+        }
 
-        window.location.href = "login.html";
+        try {
+          await window.EPS_API.auth.resetPassword({
+            email: email,
+            otp: otp,
+            new_password: newPassword
+          });
+          localStorage.removeItem("password_reset_email");
+          localStorage.removeItem("password_reset_otp");
+          window.location.href = "login.html";
+        } catch (error) {
+          errorMessage.textContent = error.message || "Unable to reset your password.";
+          errorMessage.style.display = "block";
+        }
 
       });
 

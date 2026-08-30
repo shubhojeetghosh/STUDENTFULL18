@@ -235,14 +235,9 @@ button {
 ===================================================== */
 
 .exam {
-  display: grid;
-
-  grid-template-columns: minmax(0, 1fr) 300px;
-
+  display: block;
   max-width: 1400px;
-
   margin: auto;
-
   min-height: calc(100vh - 145px);
 }
 
@@ -654,92 +649,13 @@ button {
    QUESTION NAVIGATOR
 ===================================================== */
 
-.question-nav {
-  background: #ffffff;
-
-  border-left: 1px solid #e0e7f1;
-
-  padding: 28px 20px;
-
-  box-shadow: -4px 0 15px rgba(30, 64, 175, 0.03);
-}
-
-.question-nav h2 {
-  margin: 0 0 18px;
-
-  font-size: 19px;
-
-  color: var(--navy);
-
-  font-weight: 800;
-}
-
-.question-nav p {
-  color: var(--blue);
-
-  font-weight: 800;
-
-  margin: 18px 0 9px;
-
-  font-size: 14px;
-}
 
 
 /* =====================================================
    QUESTION NUMBERS
 ===================================================== */
 
-.grid {
-  display: grid;
 
-  grid-template-columns: repeat(5, 1fr);
-
-  gap: 9px;
-}
-
-.number {
-  aspect-ratio: 1;
-
-  border: 1px solid #d5e0ef;
-
-  background: #ffffff;
-
-  border-radius: 8px;
-
-  color: #34445c;
-
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition: 0.2s ease;
-}
-
-.number:hover {
-  background: var(--light-blue);
-
-  border-color: #8fb2ed;
-
-  color: var(--blue);
-}
-
-.number.current {
-  background: var(--blue);
-
-  color: #ffffff;
-
-  border-color: var(--blue);
-
-  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.20);
-}
-
-.number.answered {
-  background: #dbeafe;
-
-  color: var(--blue);
-
-  border-color: #93b4ec;
-}
 
 
 /* =====================================================
@@ -774,10 +690,6 @@ button {
   background: var(--blue-dark);
 
   transform: translateY(-1px);
-}
-
-.question-nav .submit {
-  margin-top: 24px;
 }
 
 
