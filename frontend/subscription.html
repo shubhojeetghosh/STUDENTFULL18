@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -9,19 +10,735 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>EPS TOPIK - Subscription</title>
+  <title>EPS TOPIK - Test Access</title>
 
   <link
     rel="stylesheet"
     href="style.css"
   >
+
+  <style>
+
+    /* =========================================
+       PAGE
+       ========================================= */
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f8ff;
+      color: #14213d;
+    }
+
+    .subscription-page {
+      min-height: calc(100vh - 150px);
+
+      padding:
+        55px 25px
+        70px;
+
+      background:
+        radial-gradient(
+          circle at 8% 15%,
+          rgba(37, 99, 235, 0.06) 0 120px,
+          transparent 121px
+        ),
+        radial-gradient(
+          circle at 92% 40%,
+          rgba(37, 99, 235, 0.05) 0 150px,
+          transparent 151px
+        ),
+        #f5f8ff;
+    }
+
+
+    /* =========================================
+       NAVBAR
+       ========================================= */
+
+    .dashboard-navbar {
+      height: 76px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding:
+        0 45px;
+
+      background: #10254a;
+
+      box-shadow:
+        0 4px 14px
+        rgba(0, 0, 0, 0.15);
+    }
+
+    .dashboard-brand {
+      display: flex;
+      align-items: center;
+
+      gap: 11px;
+
+      text-decoration: none;
+    }
+
+    .dashboard-logo {
+      width: 42px;
+      height: 42px;
+
+      border-radius: 10px;
+
+      background: #ffffff;
+
+      color: #10254a;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .dashboard-brand h1 {
+      margin: 0;
+
+      color: #ffffff;
+
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .dashboard-brand span {
+      display: block;
+
+      margin-top: 2px;
+
+      color: #cbd7e8;
+
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    .profile-nav-btn {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      padding:
+        10px 14px;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.25);
+
+      border-radius: 8px;
+
+      color: #ffffff;
+
+      text-decoration: none;
+
+      font-size: 13px;
+      font-weight: 600;
+
+      transition:
+        background 0.18s ease,
+        border-color 0.18s ease;
+    }
+
+    .profile-nav-btn:hover {
+      background:
+        rgba(255, 255, 255, 0.08);
+
+      border-color:
+        rgba(255, 255, 255, 0.45);
+    }
+
+
+    /* =========================================
+       HEADING
+       ========================================= */
+
+    .subscription-heading {
+      max-width: 760px;
+
+      margin:
+        0 auto
+        40px;
+
+      text-align: center;
+    }
+
+    .dashboard-eyebrow {
+      display: block;
+
+      margin-bottom: 10px;
+
+      color: #2563eb;
+
+      font-size: 11px;
+      font-weight: 800;
+
+      letter-spacing: 1.8px;
+    }
+
+    .subscription-heading h1 {
+      margin: 0;
+
+      color: #10254a;
+
+      font-size: 38px;
+      font-weight: 800;
+
+      line-height: 1.2;
+    }
+
+    .subscription-heading p {
+      max-width: 670px;
+
+      margin:
+        14px auto
+        0;
+
+      color: #6b7890;
+
+      font-size: 15px;
+
+      line-height: 1.65;
+    }
+
+
+    /* =========================================
+       ACCESS CARDS
+       ========================================= */
+
+    .subscription-grid {
+      max-width: 920px;
+
+      margin:
+        0 auto
+        60px;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 22px;
+    }
+
+    .subscription-card {
+      position: relative;
+
+      min-height: 500px;
+
+      padding:
+        34px 32px
+        30px;
+
+      background: #ffffff;
+
+      border:
+        1px solid
+        #dfe5ec;
+
+      border-radius: 16px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      box-shadow:
+        0 10px 30px
+        rgba(16, 37, 74, 0.08);
+    }
+
+    .paid-plan {
+      border:
+        2px solid
+        #2563eb;
+
+      box-shadow:
+        0 14px 35px
+        rgba(37, 99, 235, 0.12);
+    }
+
+
+    /* Badge */
+
+    .recommended-badge {
+      position: absolute;
+
+      top: -12px;
+      right: 20px;
+
+      padding:
+        6px 12px;
+
+      border-radius: 20px;
+
+      background: #2563eb;
+
+      color: #ffffff;
+
+      font-size: 9px;
+      font-weight: 800;
+
+      letter-spacing: 0.8px;
+    }
+
+
+    /* Card top */
+
+    .plan-label {
+      display: block;
+
+      margin-bottom: 14px;
+
+      color: #2563eb;
+
+      font-size: 10px;
+      font-weight: 800;
+
+      letter-spacing: 1.4px;
+    }
+
+    .plan-top h2 {
+      margin:
+        0 0
+        8px;
+
+      color: #10254a;
+
+      font-size: 26px;
+      font-weight: 800;
+    }
+
+    .plan-top p {
+      margin: 0;
+
+      min-height: 42px;
+
+      color: #68758a;
+
+      font-size: 13px;
+
+      line-height: 1.55;
+    }
+
+
+    /* =========================================
+       PRICE
+       ========================================= */
+
+    .plan-price {
+      margin:
+        28px 0
+        24px;
+    }
+
+    .plan-price strong {
+      display: block;
+
+      color: #10254a;
+
+      font-size: 38px;
+      font-weight: 800;
+
+      line-height: 1;
+    }
+
+    .plan-price span {
+      display: block;
+
+      margin-top: 8px;
+
+      color: #8591a4;
+
+      font-size: 11px;
+    }
+
+
+    /* =========================================
+       FEATURES
+       ========================================= */
+
+    .plan-features {
+      display: grid;
+
+      gap: 14px;
+
+      margin-bottom: 30px;
+
+      color: #455670;
+
+      font-size: 13px;
+
+      line-height: 1.4;
+    }
+
+    .plan-features div {
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+    }
+
+    .plan-features div > span {
+      width: 21px;
+      height: 21px;
+
+      flex-shrink: 0;
+
+      border-radius: 50%;
+
+      background: #eafaf0;
+
+      color: #16a34a;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+
+    /* =========================================
+       BUTTONS
+       ========================================= */
+
+    .subscription-secondary-btn,
+    .subscribe-button {
+      width: 100%;
+
+      margin-top: auto;
+
+      padding:
+        14px 18px;
+
+      border-radius: 9px;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      text-align: center;
+
+      text-decoration: none;
+
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
+    }
+
+    .subscription-secondary-btn {
+      display: block;
+
+      border:
+        1px solid
+        #d4dce8;
+
+      background: #ffffff;
+
+      color: #10254a;
+    }
+
+    .subscription-secondary-btn:hover {
+      transform: translateY(-2px);
+
+      border-color: #9db9d9;
+
+      background: #f8fbff;
+    }
+
+    .subscribe-button {
+      border: none;
+
+      background: #2563eb;
+
+      color: #ffffff;
+
+      box-shadow:
+        0 8px 18px
+        rgba(37, 99, 235, 0.20);
+    }
+
+    .subscribe-button:hover {
+      transform: translateY(-2px);
+
+      background: #1d4ed8;
+
+      box-shadow:
+        0 10px 22px
+        rgba(37, 99, 235, 0.26);
+    }
+
+    .secure-payment-text {
+      margin:
+        11px 0
+        0;
+
+      text-align: center;
+
+      color: #8a96a7;
+
+      font-size: 10px;
+    }
+
+
+    /* =========================================
+       HOW IT WORKS
+       ========================================= */
+
+    .subscription-info {
+      max-width: 920px;
+
+      margin: 0 auto;
+    }
+
+    .subscription-info-header {
+      margin-bottom: 25px;
+
+      text-align: center;
+    }
+
+    .small-heading {
+      display: block;
+
+      margin-bottom: 8px;
+
+      color: #2563eb;
+
+      font-size: 10px;
+      font-weight: 800;
+
+      letter-spacing: 1.6px;
+    }
+
+    .subscription-info-header h2 {
+      margin: 0;
+
+      color: #10254a;
+
+      font-size: 27px;
+      font-weight: 800;
+    }
+
+    .subscription-steps {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 18px;
+    }
+
+    .subscription-steps article {
+      padding:
+        25px 22px;
+
+      background: #ffffff;
+
+      border:
+        1px solid
+        #e1e7ef;
+
+      border-radius: 13px;
+
+      text-align: center;
+
+      box-shadow:
+        0 6px 18px
+        rgba(16, 37, 74, 0.06);
+    }
+
+    .step-number {
+      width: 38px;
+      height: 38px;
+
+      margin:
+        0 auto
+        15px;
+
+      border-radius: 50%;
+
+      background: #eef4ff;
+
+      color: #2563eb;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .subscription-steps h3 {
+      margin:
+        0 0
+        8px;
+
+      color: #10254a;
+
+      font-size: 17px;
+    }
+
+    .subscription-steps p {
+      margin: 0;
+
+      color: #6f7d92;
+
+      font-size: 12px;
+
+      line-height: 1.6;
+    }
+
+
+    /* =========================================
+       NOTICE
+       ========================================= */
+
+    .access-note {
+      max-width: 920px;
+
+      margin:
+        25px auto
+        0;
+
+      padding:
+        16px 20px;
+
+      border:
+        1px solid
+        #c7d8eb;
+
+      border-radius: 10px;
+
+      background: #eef4ff;
+
+      color: #334a69;
+
+      text-align: center;
+
+      font-size: 12px;
+
+      line-height: 1.6;
+    }
+
+
+    /* =========================================
+       FOOTER
+       ========================================= */
+
+    .dashboard-footer {
+      min-height: 72px;
+
+      padding:
+        18px 45px;
+
+      background: #ffffff;
+
+      border-top:
+        1px solid
+        #e3e8ef;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 20px;
+
+      color: #8390a2;
+
+      font-size: 11px;
+    }
+
+    .dashboard-footer p {
+      margin: 0;
+    }
+
+    .dashboard-footer div {
+      display: flex;
+
+      gap: 18px;
+    }
+
+    .dashboard-footer a {
+      color: #6e7c91;
+
+      text-decoration: none;
+    }
+
+    .dashboard-footer a:hover {
+      color: #2563eb;
+    }
+
+
+    /* =========================================
+       RESPONSIVE
+       ========================================= */
+
+    @media(max-width: 800px) {
+
+      .dashboard-navbar {
+        padding:
+          0 18px;
+      }
+
+      .subscription-page {
+        padding:
+          40px 15px
+          50px;
+      }
+
+      .subscription-heading h1 {
+        font-size: 30px;
+      }
+
+      .subscription-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .subscription-card {
+        min-height: auto;
+      }
+
+      .subscription-steps {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-footer {
+        padding:
+          18px 20px;
+
+        flex-direction: column;
+
+        text-align: center;
+      }
+
+    }
+
+  </style>
+
 </head>
 
 
 <body class="dashboard-page">
 
 
-  <!-- ================= NAVBAR ================= -->
+  <!-- =========================================
+       NAVBAR
+       ========================================= -->
 
   <header class="dashboard-navbar">
 
@@ -49,8 +766,6 @@
     </a>
 
 
-    
-
     <div class="user-menu">
 
       <a
@@ -60,47 +775,50 @@
         ← Back to Home
       </a>
 
-      
-
     </div>
 
   </header>
 
 
 
-  <!-- ================= SUBSCRIPTION PAGE ================= -->
+  <!-- =========================================
+       TEST ACCESS PAGE
+       ========================================= -->
 
   <main class="subscription-page">
 
 
-    <!-- Heading -->
+    <!-- HEADING -->
 
     <section class="subscription-heading">
 
       <span class="dashboard-eyebrow">
-        PREMIUM ACCESS
+        TEST ACCESS
       </span>
 
       <h1>
-        Unlock all EPS TOPIK tests
+        Practice EPS TOPIK your way
       </h1>
 
       <p>
-        Your first practice test is completely free.
-        Subscribe to unlock the remaining tests and continue
-        your EPS TOPIK preparation.
+        Start your preparation with Set No. 01 for free.
+        Additional test sets can be purchased individually
+        for NPR 50 each. Choose the chapter and test set
+        you want to practice.
       </p>
 
     </section>
 
 
 
-    <!-- ================= PLAN AREA ================= -->
+    <!-- =========================================
+         ACCESS CARDS
+         ========================================= -->
 
     <section class="subscription-grid">
 
 
-      <!-- FREE PLAN -->
+      <!-- FREE ACCESS -->
 
       <article class="subscription-card free-plan">
 
@@ -108,15 +826,16 @@
         <div class="plan-top">
 
           <span class="plan-label">
-            CURRENT ACCESS
+            FREE ACCESS
           </span>
 
           <h2>
-            Free
+            Free Practice
           </h2>
 
           <p>
-            Start practicing without payment.
+            Start practicing EPS TOPIK without
+            making any payment.
           </p>
 
         </div>
@@ -125,11 +844,11 @@
         <div class="plan-price">
 
           <strong>
-            ₹0
+            NPR 0
           </strong>
 
           <span>
-            Free forever
+            Set No. 01
           </span>
 
         </div>
@@ -139,7 +858,7 @@
 
           <div>
             <span>✓</span>
-            EPS TOPIK Set No. 01
+            Set No. 01 available free
           </div>
 
           <div>
@@ -149,7 +868,7 @@
 
           <div>
             <span>✓</span>
-            Reading & Listening
+            Reading &amp; Listening
           </div>
 
           <div>
@@ -157,19 +876,19 @@
             Instant Result
           </div>
 
-          <div class="feature-disabled">
-            <span>×</span>
-            Premium Test Sets
+          <div>
+            <span>✓</span>
+            Available in every practice category
           </div>
 
         </div>
 
 
         <a
-          href="dashboard.html#tests"
+          href="set.html"
           class="subscription-secondary-btn"
         >
-          Take Free Test
+          Start Free Practice
         </a>
 
 
@@ -177,43 +896,42 @@
 
 
 
-      <!-- PREMIUM PLAN -->
+      <!-- PAID ACCESS -->
 
-      <article class="subscription-card premium-plan">
+      <article class="subscription-card paid-plan">
 
 
         <div class="recommended-badge">
-          RECOMMENDED
+          PAY PER SET
         </div>
 
 
         <div class="plan-top">
 
           <span class="plan-label">
-            FULL ACCESS
+            PAID TEST ACCESS
           </span>
 
           <h2>
-            Premium
+            Individual Test Sets
           </h2>
 
           <p>
-            Unlock the complete EPS TOPIK practice library.
+            Purchase only the test sets you want
+            instead of paying for a subscription.
           </p>
 
         </div>
 
 
-        <!-- CHANGE PRICE HERE -->
-
         <div class="plan-price">
 
           <strong>
-            ₹499
+            NPR 50
           </strong>
 
           <span>
-            Full test access
+            Per selected test set
           </span>
 
         </div>
@@ -223,32 +941,32 @@
 
           <div>
             <span>✓</span>
-            Access all EPS TOPIK tests
+            Choose your preferred chapter
           </div>
 
           <div>
             <span>✓</span>
-            Reading & Listening Tests
+            Choose Set No. 02–21
           </div>
 
           <div>
             <span>✓</span>
-            Instant Results
+            NPR 50 for each selected set
           </div>
 
           <div>
             <span>✓</span>
-            Detailed Performance Tracking
+            Reading &amp; Listening
           </div>
 
           <div>
             <span>✓</span>
-            Progress Dashboard
+            Instant Result
           </div>
 
           <div>
             <span>✓</span>
-            Recent Test History
+            Selected set available after payment
           </div>
 
         </div>
@@ -257,18 +975,15 @@
         <button
           type="button"
           class="subscribe-button"
-          id="subscribeButton"
-          onclick="startSubscription()"
+          id="chooseSetButton"
         >
-          Unlock Premium →
+          Choose Test Set →
         </button>
 
 
         <p class="secure-payment-text">
-          Secure payment • Instant access after successful payment
+          Secure payment through eSewa
         </p>
-
-
 
 
       </article>
@@ -278,7 +993,9 @@
 
 
 
-    <!-- ================= HOW IT WORKS ================= -->
+    <!-- =========================================
+         HOW IT WORKS
+         ========================================= -->
 
     <section class="subscription-info">
 
@@ -290,10 +1007,11 @@
         </span>
 
         <h2>
-          Simple access to every test
+          Choose. Pay. Practice.
         </h2>
 
       </div>
+
 
 
       <div class="subscription-steps">
@@ -306,15 +1024,16 @@
           </div>
 
           <h3>
-            Take Test 01 Free
+            Choose a Chapter
           </h3>
 
           <p>
-            Every registered student can attempt the
-            first EPS TOPIK test without payment.
+            Open the test selection page and choose
+            the EPS TOPIK topic you want to practice.
           </p>
 
         </article>
+
 
 
         <article>
@@ -324,15 +1043,16 @@
           </div>
 
           <h3>
-            Subscribe
+            Choose a Test Set
           </h3>
 
           <p>
-            Choose premium access and complete the
-            secure payment process.
+            Set No. 01 is free. Sets No. 02–21
+            cost NPR 50 each.
           </p>
 
         </article>
+
 
 
         <article>
@@ -342,12 +1062,13 @@
           </div>
 
           <h3>
-            Unlock Tests
+            Pay &amp; Start
           </h3>
 
           <p>
-            Once payment is confirmed, premium tests
-            become available on your dashboard.
+            For a paid set, complete payment through
+            eSewa. After successful verification,
+            your selected set becomes available.
           </p>
 
         </article>
@@ -359,11 +1080,25 @@
     </section>
 
 
+
+    <!-- NOTICE -->
+
+    <div class="access-note">
+
+      You are charged only for the test set you select.
+      Purchasing one set does not automatically unlock
+      other test sets.
+
+    </div>
+
+
   </main>
 
 
 
-  <!-- ================= FOOTER ================= -->
+  <!-- =========================================
+       FOOTER
+       ========================================= -->
 
   <footer class="dashboard-footer">
 
@@ -390,7 +1125,35 @@
   </footer>
 
 
-  <script src="script.js"></script>
+
+  <script>
+
+    /*
+      This page is only for explaining
+      the free / paid test system.
+
+      Actual category + set selection
+      happens in set.html.
+    */
+
+    const chooseSetButton =
+      document.getElementById(
+        "chooseSetButton"
+      );
+
+
+    chooseSetButton.addEventListener(
+      "click",
+      function () {
+
+        window.location.href =
+          "set.html";
+
+      }
+    );
+
+  </script>
+
 
 </body>
 

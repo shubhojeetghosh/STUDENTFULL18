@@ -11,12 +11,18 @@
   <div class="brand-row">
     <div class="logo">EPS TOPIK TEST EXAM</div>
     <div class="student-card">
-      <div class="avatar" id="studentInitials">SL</div>
-      <div class="student-info">
-        <b id="studentName">Sun Lee</b>
-        <span id="studentId">2023000950</span>
-      </div>
-    </div>
+
+  <div class="avatar" id="studentInitials">
+    ST
+  </div>
+
+  <div class="student-info">
+    <b id="studentName">
+      Student
+    </b>
+  </div>
+
+</div>
   </div>
   <div class="stats">
     <div>Set No. <b>01</b></div>
@@ -43,26 +49,60 @@
     <div class="question-panel">
       <div class="prompt" id="prompt"></div>
       <div class="content-row">
-        <div class="media-panel" id="mediaPanel">
-          <img id="mediaImage" alt="Question visual">
-          <div class="audio-placeholder hidden" id="audioPlaceholder">
-            <button id="audioButton">▶</button>
-            <span>Listen to the question</span>
-          </div>
-        </div>
-        <div class="options" id="options"></div>
-      </div>
+
+  <div class="media-panel" id="mediaPanel">
+
+    <!-- Question Text -->
+    <div id="mediaText" class="media-text hidden"></div>
+
+    <!-- Question Image -->
+    <img
+      id="mediaImage"
+      class="hidden"
+      alt="Question visual"
+    >
+
+    <!-- Question Audio -->
+    <div
+      class="audio-placeholder hidden"
+      id="audioPlaceholder"
+    >
+      <button id="audioButton">▶</button>
+      <span>Listen to the question</span>
     </div>
 
-   <div class="controls">
-  <button id="prevBtn">&lt;&lt; Previous</button>
-  <button id="nextBtn">Next &gt;&gt;</button>
+  </div>
+
+  <div class="options" id="options"></div>
+
 </div>
+    </div>
+
+    <div class="controls">
+      <button id="prevBtn">&lt;&lt; Previous</button>
+      <button id="allBtn">View All Questions</button>
+      <button id="nextBtn">Next &gt;&gt;</button>
+    </div>
   </section>
 
-  
+  <aside class="question-nav">
+    <h2>Question Navigator</h2>
+    <p>읽기 · Reading</p>
+    <div class="grid" id="readingGrid"></div>
+    <p>듣기 · Listening</p>
+    <div class="grid" id="listeningGrid"></div>
+    <button class="submit" id="submitBtn">Submit Answer</button>
+  </aside>
 </main>
 
+<div class="overlay hidden" id="allModal">
+  <div class="all-box">
+    <button class="close" data-close="allModal">×</button>
+    <h2>All Questions</h2>
+    <p>Select any question to jump directly to it.</p>
+    <div class="all-grid" id="allGrid"></div>
+  </div>
+</div>
 
 <div class="overlay hidden" id="submitModal">
   <div class="submit-box">

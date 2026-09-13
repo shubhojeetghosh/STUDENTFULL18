@@ -1,3 +1,4 @@
+//const API_BASE_URL = "https://10.60.227.210:8000";
 const API_BASE_URL = window.EPS_API?.baseUrl || "http://127.0.0.1:8000";
 const API_ENDPOINTS = {
 
@@ -992,151 +993,462 @@ if (registerForm) {
 }
 
 /* =========================================================
-   LOGIN
+   STUDENT / ADMIN LOGIN
    ========================================================= */
 
-const loginForm = document.getElementById("loginForm");
+let selectedLoginType = "student";
+
+
+/* =========================================================
+   SWITCH LOGIN TYPE
+   ========================================================= */
+
+function switchLoginType(type) {
+
+  selectedLoginType = type;
+
+  const studentButton =
+    document.getElementById("studentLoginBtn");
+
+  const adminButton =
+    document.getElementById("adminLoginBtn");
+
+  const loginEyebrow =
+    document.getElementById("loginEyebrow");
+
+  const loginTitle =
+    document.getElementById("loginTitle");
+
+  const loginDescription =
+    document.getElementById("loginDescription");
+
+  const forgotPasswordLink =
+    document.getElementById("forgotPasswordLink");
+
+  const studentDivider =
+    document.getElementById("studentDivider");
+
+  const studentRegister =
+    document.getElementById("studentRegister");
+
+  const loginButton =
+    document.getElementById("loginButton");
+
+  const authCard =
+    document.querySelector(".auth-card");
+
+
+  /* ================= STUDENT ================= */
+
+  if (type === "student") {
+
+    if (studentButton) {
+      studentButton.classList.add("active");
+    }
+
+    if (adminButton) {
+      adminButton.classList.remove("active");
+    }
+
+    if (authCard) {
+      authCard.classList.remove("admin-mode");
+    }
+
+    if (loginEyebrow) {
+      loginEyebrow.textContent =
+        "EPS TOPIK EXAM";
+    }
+
+    if (loginTitle) {
+      loginTitle.textContent =
+        "Welcome back";
+    }
+
+    if (loginDescription) {
+      loginDescription.textContent =
+        "Log in to continue your Korean language test preparation.";
+    }
+
+    if (forgotPasswordLink) {
+      forgotPasswordLink.style.display =
+        "inline";
+    }
+
+    if (studentDivider) {
+      studentDivider.style.display =
+        "flex";
+    }
+
+    if (studentRegister) {
+      studentRegister.style.display =
+        "block";
+    }
+
+    if (loginButton) {
+      loginButton.textContent =
+        "Log in";
+    }
+
+  }
+
+
+  /* ================= ADMIN ================= */
+
+  else if (type === "admin") {
+
+    if (adminButton) {
+      adminButton.classList.add("active");
+    }
+
+    if (studentButton) {
+      studentButton.classList.remove("active");
+    }
+
+    if (authCard) {
+      authCard.classList.add("admin-mode");
+    }
+
+    if (loginEyebrow) {
+      loginEyebrow.textContent =
+        "EPS TOPIK ADMIN";
+    }
+
+    if (loginTitle) {
+      loginTitle.textContent =
+        "Admin Portal";
+    }
+
+    if (loginDescription) {
+      loginDescription.textContent =
+        "Sign in to manage the EPS TOPIK examination platform.";
+    }
+
+    /*
+       Keep forgot password available for admin
+       for now. We can create a separate admin
+       recovery flow later if required.
+    */
+    if (forgotPasswordLink) {
+      forgotPasswordLink.style.display =
+        "inline";
+    }
+
+    /*
+       Admin does not need student registration.
+    */
+    if (studentDivider) {
+      studentDivider.style.display =
+        "none";
+    }
+
+    if (studentRegister) {
+      studentRegister.style.display =
+        "none";
+    }
+
+    if (loginButton) {
+      loginButton.textContent =
+        "Admin Login";
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   LOGIN FORM
+   ========================================================= */
+
+const loginForm =
+  document.getElementById("loginForm");
+
 
 if (loginForm) {
 
-  loginForm.addEventListener("submit", async function (event) {
+  loginForm.addEventListener(
+    "submit",
+    async function (event) {
 
-    event.preventDefault();
-
-
-    const email =
-      document.getElementById("loginEmail").value.trim();
+      event.preventDefault();
 
 
-    const password =
-      document.getElementById("loginPassword").value;
+      const email =
+        document
+          .getElementById("loginEmail")
+          .value
+          .trim();
 
 
-    const loginButton =
-      document.getElementById("loginButton");
+      const password =
+        document
+          .getElementById("loginPassword")
+          .value;
 
 
-    if (!email || !password) {
-
-      alert("Please enter email and password.");
-
-      return;
-    }
+      const loginButton =
+        document.getElementById("loginButton");
 
 
-    try {
-
-      if (loginButton) {
-
-        loginButton.disabled = true;
-        loginButton.textContent = "Logging in...";
-
-      }
+      const messageBox =
+        document.getElementById("messageBox");
 
 
-      const response = await fetch(
-        `${API_BASE_URL}/auth/login`,
-        {
-
-          method: "POST",
-
-          headers: {
-            "Content-Type": "application/json"
-          },
-
-          body: JSON.stringify({
-            email: email,
-            password: password
-          })
-
-        }
-      );
-
-
-      const data = await response.json();
-
-
-      if (!response.ok) {
+      if (!email || !password) {
 
         alert(
-          data.detail ||
-          data.message ||
-          "Invalid email or password."
+          "Please enter email and password."
         );
 
         return;
       }
 
 
-      if (!data.access_token) {
+      try {
 
-        alert("No access token received from backend.");
+        if (loginButton) {
 
-        return;
+          loginButton.disabled =
+            true;
+
+          loginButton.textContent =
+            selectedLoginType === "admin"
+              ? "Logging in..."
+              : "Logging in...";
+        }
+
+
+        /* =========================================
+           LOGIN REQUEST
+           ========================================= */
+
+        const response =
+          await fetch(
+            `${API_BASE_URL}/auth/login`,
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                email: email,
+                password: password
+              })
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        /* =========================================
+           BACKEND ERROR
+           ========================================= */
+
+        if (!response.ok) {
+
+          const errorMessage =
+            data.detail ||
+            data.message ||
+            "Invalid email or password.";
+
+          if (messageBox) {
+            messageBox.textContent =
+              errorMessage;
+          }
+
+          alert(errorMessage);
+
+          return;
+        }
+
+
+        /* =========================================
+           ACCESS TOKEN CHECK
+           ========================================= */
+
+        if (!data.access_token) {
+
+          alert(
+            "No access token received from backend."
+          );
+
+          return;
+        }
+
+
+        /* =========================================
+           IMPORTANT:
+           CHECK THE REAL BACKEND ROLE
+           ========================================= */
+
+        const backendRole =
+          String(data.role || "")
+            .toLowerCase()
+            .trim();
+
+
+        /*
+           ADMIN LOGIN SELECTED
+           BUT ACCOUNT IS NOT ADMIN
+        */
+
+        if (
+          selectedLoginType === "admin" &&
+          backendRole !== "admin"
+        ) {
+
+          alert(
+            "Access denied. This account is not an admin account."
+          );
+
+          return;
+        }
+
+
+        /*
+           STUDENT LOGIN SELECTED
+           BUT ACCOUNT IS ADMIN
+        */
+
+        if (
+          selectedLoginType === "student" &&
+          backendRole === "admin"
+        ) {
+
+          alert(
+            "Please use the Admin login option for this account."
+          );
+
+          return;
+        }
+
+
+        /* =========================================
+           SAVE LOGIN INFORMATION
+           ========================================= */
+
+        localStorage.setItem(
+          "access_token",
+          data.access_token
+        );
+
+
+        localStorage.setItem(
+          "token_type",
+          data.token_type || "bearer"
+        );
+
+
+        localStorage.setItem(
+          "user_email",
+          email
+        );
+
+
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+
+            name:
+              data.name,
+
+            email:
+              data.email || email,
+
+            id:
+              data.user_id,
+
+            role:
+              data.role
+
+          })
+        );
+
+
+        /* =========================================
+           SAVE LOGIN TYPE
+           ========================================= */
+
+        localStorage.setItem(
+          "login_type",
+          selectedLoginType
+        );
+
+
+        /* =========================================
+           REDIRECT
+           ========================================= */
+
+        if (backendRole === "admin") {
+
+          alert(
+            "Admin login successful!"
+          );
+
+          /*
+             CHANGE THIS PATH IF YOUR ADMIN
+             DASHBOARD HAS A DIFFERENT LOCATION.
+          */
+
+          window.location.href =
+            "admin/admin.html";
+
+        }
+
+        else {
+
+          alert(
+            "Login successful!"
+          );
+
+          window.location.href =
+            "dashboard.html";
+
+        }
+
       }
 
 
-      localStorage.setItem(
-        "access_token",
-        data.access_token
-      );
+      catch (error) {
+
+        console.error(
+          "Login error:",
+          error
+        );
 
 
-      localStorage.setItem(
-        "token_type",
-        data.token_type || "bearer"
-      );
+        alert(
+          "Could not connect to backend. Check whether the backend server is running."
+        );
+
+      }
 
 
-      localStorage.setItem(
-        "user_email",
-        email
-      );
+      finally {
 
-      localStorage.setItem(
-      "user",
-      JSON.stringify({
-      name: data.name,
-      email: data.email || email,
-      id: data.user_id,
-      role: data.role
-    })
-);
+        if (loginButton) {
 
+          loginButton.disabled =
+            false;
 
-      alert("Login successful!");
+          loginButton.textContent =
+            selectedLoginType === "admin"
+              ? "Admin Login"
+              : "Log in";
 
-
-      window.location.href =
-        "dashboard.html";
-
-    }
-
-    catch (error) {
-
-      console.error("Login error:", error);
-
-      alert(
-        "Could not connect to backend. Check whether the backend server is running."
-      );
-
-    }
-
-    finally {
-
-      if (loginButton) {
-
-        loginButton.disabled = false;
-        loginButton.textContent = "Log in";
+        }
 
       }
 
     }
-
-  });
+  );
 
 }
-
 
 /* =========================================================
    PASSWORD RECOVERY

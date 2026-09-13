@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.authentication.routes.auth import router as auth_router
-from backend.quiz_engine.repository.in_memory import (
+from app.routes.auth import router as auth_router
+from app.repository.in_memory import (
     InMemoryAttemptRepository,
     InMemoryAudioTracker,
     InMemoryExamRepository,
@@ -44,8 +44,8 @@ def create_app() -> FastAPI:
     _seed_sample_exam(app.state.exam_repo)
 
     # ── Routers ─────────────────────────
-    from backend.quiz_engine.routes.quiz_routes import router as quiz_router
-    from backend.quiz_engine.routes.attempt_routes import router as attempt_router
+    from app.routes.quizzes import router as quiz_router
+    from app.routes.attempts import router as attempt_router
 
     app.include_router(auth_router)
     app.include_router(quiz_router)
@@ -60,8 +60,8 @@ def _seed_sample_exam(exam_repo: InMemoryExamRepository) -> None:
     Replace this with real database data when Dev 1 delivers
     the PostgreSQL/SQLAlchemy infrastructure.
     """
-    from backend.quiz_engine.exam import Exam
-    from backend.quiz_engine.question import Option, Question, QuestionType
+    from app.models.exam import Exam
+    from app.models.question import Option, Question, QuestionType
 
     exam = Exam(
         id="exam1",
